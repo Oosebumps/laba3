@@ -18,7 +18,7 @@ using namespace std;
 int const NMax = 10;
 int const MMax = 10;
 const char* FName = "Тест2.txt";
-//const char* FNameB = "Тест12.txt";
+const char* FNameB = "Тест12.txt";
 
 //Чтение и проверка матрицы
 int inpMatr(const char* FName, int xVec[][MMax], int& xi, int& xj);
@@ -53,8 +53,8 @@ int main()
     int summ = 0;  //сумма эелемнтов столбца
     int ErrCode = 0;    //Код ошибки
     int min = -1; //минимальная сумма стобцов для проверки на изменения
-//    int BBMatr[NMax][MMax];//Исходный массив 
-//    int BBVec[MMax];//Массив для запоминания сумм в столбцах
+    int BBMatr[NMax][MMax];//Исходный массив 
+    int BBVec[MMax];//Массив для запоминания сумм в столбцах
 
     // функции чтения файла и вывода ошибок
     ErrCode = inpMatr(FName, AVec, i, j);
@@ -76,7 +76,7 @@ int main()
     }
 
 
-    /*ErrCode = inpMatr(FNameB, BBMatr, line, column);
+    ErrCode = inpMatr(FNameB, BBMatr, i, j);
     if (ErrCode > 0)
     {
         printMess(ErrCode, FNameB);
@@ -84,14 +84,14 @@ int main()
     }
     else {
         //Вывод матрицы
-        printMatr(BBMatr, line, column);
+        printMatr(AVec, i, j);
 
         //Поиск минимальной суммы
-        minsumm(BBMatr, BBVec, line, column);
+        minsumm(AVec, BVec, i, j);
 
         //Вывод минимальной суммы
-        minprint(BBVec, column);
-    }*/
+        minprint(BVec, j, &min);
+    }
     system("PAUSE");
     return 0;
 }//main
@@ -245,12 +245,12 @@ void minsumm(int xVec[][MMax], int* xBVec, int& xi, int& xj)
             }
             else
             {
-                //  *(xBVec + p) = -1;//Сумма всего столбца будет -1, цикл завершится 
+                xBVec[p] = -1;//Сумма всего столбца будет -1, цикл завершится 
                 break;
 
 
             }//if
-            *(xBVec + p) = summ;
+            xBVec[p] = summ;
         }//for
 
     }//for
