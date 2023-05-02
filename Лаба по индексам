@@ -1,7 +1,7 @@
 /*********КУРС ИНФОРМАТИКИ***********
 
 *Project type: Win 32 console Application***********
-*Project Name: LABA_2s**********
+*Project Name: LABA_3s**********
 *File name: Source.cpp*********
 *Language: cpp, MS VS ver 2022 and above************
 *Programmer: Александрин Тимур***Ерохов Валерий*********
@@ -17,26 +17,26 @@ using namespace std;
 
 int const NMax = 10;
 int const MMax = 10;
-const char* FName = "Тест1.txt";
+const char* FName = "Тест15.txt";
 const char* FNameB = "Тест16.txt";
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName, int xVec[][MMax], int& xi, int& xj);
+int inpMatr(const char* FName, int xVec[][MMax], int& xN, int& xM);
 
 //Функция вывода ошибки
 void printMess(int xErrCode, const char* FName);
 
 //Печать матрицы
-void printMatr(int xVec[][MMax], int xi, int xj);
+void printMatr(int xVec[][MMax], int xN, int xM);
 
 //Функция формирования массива сумм по столбцам
-void minsumm(int xVec[][MMax], int xBVec[MMax], int xi, int xj);
+void minsumm(int xVec[][MMax], int xBVec[MMax], int xN, int xM);
 
-//Функция вывода минимальной суммы
-void minprint(int xBVec[MMax], int xj, int& min);
+//Функция проверки массива сумм
+void treatment(int xBVec[MMax], int xM, int& min);
 
 //Функция поиска минимальной суммы
-void searcingminsumm(int xBVec[MMax], int xj, int& min);
+void searcingminsumm(int xBVec[MMax], int xM, int& min);
 
 
 int main()
@@ -71,8 +71,14 @@ int main()
         //Поиск минимальной суммы
         minsumm(AVec, BVec, i, j);
 
+        //обработка массива минимальных сумм, проверка на выполнение условий задачи
+        treatment(BVec, j, min);
+
         //Вывод минимальной суммы
-        minprint(BVec, j, min);
+        if (min != -1)
+        {
+            cout << " Минимальная сумма " << min << endl;
+        }
     }
 
 
@@ -89,8 +95,14 @@ int main()
         //Поиск минимальной суммы
         minsumm(BBMatr, BBVec, i, j);
 
+        //обработка массива минимальных сумм, проверка на соответвсие условиям задачи
+        treatment(BBVec, j, min);
+
         //Вывод минимальной суммы
-        minprint(BBVec, j, min);
+        if (min != -1)
+        {
+            cout << " Минимальная сумма " << min << endl;
+        }
     }
     system("PAUSE");
     return 0;
@@ -100,7 +112,7 @@ int main()
 //РЕАЛИЗАЦИЯ ФУНКЦИЙ
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName, int xVec[][MMax], int& xi, int& xj)
+int inpMatr(const char* FName, int xVec[][MMax], int& xN, int& xM)
 {
     int k = 0; //счетчик
     int p = 0; //счетчик
@@ -124,28 +136,28 @@ int inpMatr(const char* FName, int xVec[][MMax], int& xi, int& xj)
     cout << "\n Чтение матрицы из файла: " << FName << endl;
 
 
-    fin >> xi;  //Чтение числа элементов массива
-    fin >> xj;    //Чтение числа столбцов
+    fin >> xN;  //Чтение числа элементов массива
+    fin >> xM;    //Чтение числа столбцов
 
-    cout << "\t Размер массива: " << xi << "  " << xj << endl;
+    cout << "\t Размер массива: " << xN << "  " << xM << endl;
 
     //Входной контроль
 
-    if ((xi < 0) || (xj < 0))
+    if ((xN < 0) || (xM < 0))
     {
         return 3;
     }
 
-    if ((xi >= NMax) || (xj >= MMax))
+    if ((xN >= NMax) || (xM >= MMax))
     {
         return 4;
     }
 
     //Чтение файла в массив
-    for (int k = 0; k < xi; k++)
+    for (int k = 0; k < xN; k++)
     {
 
-        for (int p = 0; p < xj; p++)
+        for (int p = 0; p < xM; p++)
         {
 
             if (fin.eof()) {
@@ -210,15 +222,15 @@ void printMess(int xErrCode, const char* FName) // Имя файла
 } // PrintMiss
 
 //Функция печати матрицы
-void printMatr(int xVec[][MMax], int xi, int xj)
+void printMatr(int xVec[][MMax], int xN, int xM)
 {
     int k; //счетчик строк
     int p; //счетчик столбцов
     //Вывод матрицы
-    cout << "\t Матрица размером [" << xi << "][" << xj << "]" << endl;
-    for (k = 0; k < xi; k++)            //for по строкам
+    cout << "\t Матрица размером [" << xN << "][" << xM << "]" << endl;
+    for (k = 0; k < xN; k++)            //for по строкам
     {
-        for (p = 0; p < xj; p++)          //for по столбцам
+        for (p = 0; p < xM; p++)          //for по столбцам
         {
             cout << " " << xVec[k][p] << " ";
         }//for p
@@ -226,7 +238,7 @@ void printMatr(int xVec[][MMax], int xi, int xj)
     }//for k
 }//printMatr
 
-void minsumm(int xVec[][MMax], int xBVec[MMax], int xi, int xj)
+void minsumm(int xVec[][MMax], int xBVec[MMax], int xN, int xM)
 
 //void minsumm(int xVec[][MMax], int xBVec[MMax], int& i, int& j)
 
@@ -234,10 +246,10 @@ void minsumm(int xVec[][MMax], int xBVec[MMax], int xi, int xj)
     int p;// счётчик для столбцов
     int k;// счётчик для строк
     //Произведём подсчёт сумм
-    for (p = 0; p < xj; p++)
+    for (p = 0; p < xM; p++)
     {
         int summ = 0;
-        for (k = 0; k < xi; k++)
+        for (k = 0; k < xN; k++)
         {
             if (xVec[k][p] >= 0)
             {
@@ -257,12 +269,11 @@ void minsumm(int xVec[][MMax], int xBVec[MMax], int xi, int xj)
 }//minsumm
 
 
-void minprint(int xBVec[MMax], int xj, int& min) {
-
+void treatment(int xBVec[MMax], int xM, int& min) {
 
     int p;//счетчик
 
-    for (p = 0; p < xj; p++)//Проверка минимальной суммы
+    for (p = 0; p < xM; p++)//Проверка на наличие минимальной суммы, удовлетворяющей условию
     {
         if (xBVec[p] >= 0)
         {
@@ -277,15 +288,14 @@ void minprint(int xBVec[MMax], int xj, int& min) {
     }
     else
     {
-        searcingminsumm(xBVec, xj, min);
-        cout << " Минимальная сумма " << min << endl;
+        searcingminsumm(xBVec, xM, min);
     }//if
 }//minprint
 
-void searcingminsumm(int xBVec[MMax], int xj, int& min)
+void searcingminsumm(int xBVec[MMax], int xM, int& min)
 {
     int p;//Счётчик строк
-    for (p = 0; p < xj; p++)//Поиск мимнмальной суммы
+    for (p = 0; p < xM; p++)//Поиск мимнмальной суммы
     {
         if (min > xBVec[p] && xBVec[p] >= 0)
         {
