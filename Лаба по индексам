@@ -7,7 +7,7 @@
 *Programmer: Александрин Тимур***Ерохов Валерий*********
 *Modified by:
 *Created:12.03.2023*********************************
-*Last revision:1.05.2023
+*Last revision:2.05.2023
 *Commets:
 ***************************************************/
 
@@ -17,26 +17,39 @@ using namespace std;
 
 int const NMax = 10;
 int const MMax = 10;
-const char* FName = "Тест15.txt";
-const char* FNameB = "Тест16.txt";
+const char* FName = "Тест12.txt";
+const char* FNameB = "Тест10.txt";
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName, int xVec[][MMax], int& xN, int& xM);
+int inpMatr(const char* FName,//Имя файла
+    int xVec[][MMax],//Указатель на массив
+    int& xN,//Число строк в массиве
+    int& xM);//Число столбцов в массиве
 
 //Функция вывода ошибки
-void printMess(int xErrCode, const char* FName);
+void printMess(int xErrCode//Код ошибки
+    , const char* FName);//Имя файла
 
 //Печать матрицы
-void printMatr(int xVec[][MMax], int xN, int xM);
+void printMatr(int xVec[][MMax]//Указатель на массив
+    , int xN//Число строк в массиве
+    , int xM);//Число столбцов в массиве
 
 //Функция формирования массива сумм по столбцам
-void minsumm(int xVec[][MMax], int xBVec[MMax], int xN, int xM);
+void minsumm(int xVec[][MMax]//Указатель на массив
+    , int xBVec[MMax]//Массив минимальных сумм
+    , int xN//Количество строк
+    , int xM);//Количество столбцов
 
 //Функция проверки массива сумм
-void treatment(int xBVec[MMax], int xM, int& min);
+void treatment(int xBVec[MMax]//Массив минимальных сумм
+    , int xM//Количество строк
+    , int& min);//Минимальная сумма
 
 //Функция поиска минимальной суммы
-void searcingminsumm(int xBVec[MMax], int xM, int& min);
+void searcingminsumm(int xBVec[MMax]//Массив минимальных сумм
+    , int xM//Количество столбцов
+    , int& min);//Минимальная сумма
 
 
 int main()
@@ -112,7 +125,7 @@ int main()
 //РЕАЛИЗАЦИЯ ФУНКЦИЙ
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName, int xVec[][MMax], int& xN, int& xM)
+int inpMatr(const char* FName,int xVec[][MMax],int& xN,int& xM)
 {
     int k = 0; //счетчик
     int p = 0; //счетчик
@@ -219,7 +232,7 @@ void printMess(int xErrCode, const char* FName) // Имя файла
 
     } // switch
 
-} // PrintMiss
+} // printMess
 
 //Функция печати матрицы
 void printMatr(int xVec[][MMax], int xN, int xM)
@@ -290,7 +303,7 @@ void treatment(int xBVec[MMax], int xM, int& min) {
     {
         searcingminsumm(xBVec, xM, min);
     }//if
-}//minprint
+}//treatment
 
 void searcingminsumm(int xBVec[MMax], int xM, int& min)
 {
