@@ -7,7 +7,7 @@
 *Programmer: Александрин Тимур***Ерохов Валерий*********
 *Modified by:
 *Created:12.03.2023*********************************
-*Last revision:13.03.2023
+*Last revision:1.05.2023
 *Commets:
 ***************************************************/
 
@@ -17,20 +17,20 @@ using namespace std;
 
 int const NMax = 10;
 int const MMax = 10;
-const char* FName = "Тест2.txt";
-const char* FNameB = "Тест12.txt";
+const char* FName = "Тест7.txt";
+const char* FNameB = "Тест9.txt";
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName, int xVec[NMax][MMax], int& xi, int& xj);
+int inpMatr(const char* FName, int xVec[][MMax], int& xi, int& xj);
 
 //Функция вывода ошибки
 void printMess(int xErrCode, const char* FName);
 
 //Печать матрицы
-void printMatr(int xVec[NMax][MMax], int& xi, int& xj);
+void printMatr(int xVec[][MMax], int& xi, int& xj);
 
-//Функция поиска минимальной суммы
-void minsumm(int xVec[NMax][MMax], int* xBVec, int& xi, int& xj);
+//Функция формирования массива сумм по столбцам
+void minsumm(int xVec[][MMax], int xBVec[MMax], int& xi, int& xj);
 
 //Функция вывода минимальной суммы
 void minprint(int xBVec[MMax], int& xj, int* min);
@@ -63,7 +63,7 @@ int main()
         printMess(ErrCode, FName);
 
     }
-    else 
+    else
     {
         //Вывод матрицы
         printMatr(AVec, i, j);
@@ -100,7 +100,7 @@ int main()
 //РЕАЛИЗАЦИЯ ФУНКЦИЙ
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName, int xVec[NMax][MMax], int& xi, int& xj)
+int inpMatr(const char* FName, int xVec[][MMax], int& xi, int& xj)
 {
     int k = 0; //счетчик
     int p = 0; //счетчик
@@ -210,7 +210,7 @@ void printMess(int xErrCode, const char* FName) // Имя файла
 } // PrintMiss
 
 //Функция печати матрицы
-void printMatr(int xVec[NMax][MMax], int& xi, int& xj)
+void printMatr(int xVec[][MMax], int& xi, int& xj)
 {
     int k; //счетчик строк
     int p; //счетчик столбцов
@@ -226,7 +226,7 @@ void printMatr(int xVec[NMax][MMax], int& xi, int& xj)
     }//for k
 }//printMatr
 
-void minsumm(int xVec[NMax][MMax], int* xBVec, int& xi, int& xj)
+void minsumm(int xVec[][MMax], int xBVec[MMax], int& xi, int& xj)
 
 //void minsumm(int xVec[][MMax], int xBVec[MMax], int& i, int& j)
 
