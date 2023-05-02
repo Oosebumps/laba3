@@ -22,7 +22,7 @@ const char* FNameB = "Тест10.txt";
 
 //Чтение и проверка матрицы
 int inpMatr(const char* FName,//Имя файла
-    int xVec[][MMax],//Указатель на массив
+    int xVec[][MMax],//Матрица 
     int& xN,//Число строк в массиве
     int& xM);//Число столбцов в массиве
 
@@ -31,12 +31,12 @@ void printMess(int xErrCode//Код ошибки
     , const char* FName);//Имя файла
 
 //Печать матрицы
-void printMatr(int xVec[][MMax]//Указатель на массив
+void printMatr(int xVec[][MMax]//матрица
     , int xN//Число строк в массиве
     , int xM);//Число столбцов в массиве
 
 //Функция формирования массива сумм по столбцам
-void minsumm(int xVec[][MMax]//Указатель на массив
+void minsumm(int xVec[][MMax]//Матрица
     , int xBVec[MMax]//Массив минимальных сумм
     , int xN//Количество строк
     , int xM);//Количество столбцов
@@ -57,7 +57,7 @@ int main()
     setlocale(LC_ALL, "rus"); //подключение русского языка
 
     //Инициализация переменных
-    int AVec[NMax][MMax];//Исходный массив 
+    int AVec[NMax][MMax];//Исходная матрица
     int BVec[MMax];//Массив для запоминания сумм в столбцах
     int i = 0;    //перемнная для строк матрицы
     int j = 0;    //переменная для стоблцов матрицы
@@ -66,7 +66,7 @@ int main()
     int summ = 0;  //сумма эелемнтов столбца
     int ErrCode = 0;    //Код ошибки
     int min = -1; //минимальная сумма стобцов для проверки на изменения
-    int BBMatr[NMax][MMax];//Исходный массив 
+    int BBMatr[NMax][MMax];//Исходная матрица
     int BBVec[MMax];//Массив для запоминания сумм в столбцах
 
     // функции чтения файла и вывода ошибок
