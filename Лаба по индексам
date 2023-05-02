@@ -253,8 +253,6 @@ void printMatr(int xVec[][MMax], int xN, int xM)
 
 void minsumm(int xVec[][MMax], int xBVec[MMax], int xN, int xM)
 
-//void minsumm(int xVec[][MMax], int xBVec[MMax], int& i, int& j)
-
 {
     int p;// счётчик для столбцов
     int k;// счётчик для строк
