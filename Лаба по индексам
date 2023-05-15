@@ -23,31 +23,31 @@ const char* FNameB = "Тест10.txt";
 //Чтение и проверка матрицы
 int inpMatr(const char* FName,//Имя файла
     int xVec[][MMax],//Матрица 
-    int& xN,//Число строк в массиве
-    int& xM);//Число столбцов в массиве
+    int& xN,//Число строк в матрице
+    int& xM);//Число столбцов в матрице
 
 //Функция вывода ошибки
 void printMess(int xErrCode//Код ошибки
     , const char* FName);//Имя файла
 
 //Печать матрицы
-void printMatr(int xVec[][MMax]//матрица
-    , int xN//Число строк в массиве
-    , int xM);//Число столбцов в массиве
+void printMatr(int xVec[][MMax]//Матрица
+    , int xN//Число строк в матрице
+    , int xM);//Число столбцов в матрице
 
 //Функция формирования массива сумм по столбцам
 void minsumm(int xVec[][MMax]//Матрица
-    , int xBVec[MMax]//Массив минимальных сумм
+    , int xBVec[MMax]//Массив сумм
     , int xN//Количество строк
     , int xM);//Количество столбцов
 
 //Функция проверки массива сумм
-void treatment(int xBVec[MMax]//Массив минимальных сумм
+void treatment(int xBVec[MMax]//Массив сумм
     , int xM//Количество строк
     , int& min);//Минимальная сумма
 
 //Функция поиска минимальной суммы
-void searcingminsumm(int xBVec[MMax]//Массив минимальных сумм
+void searcingminsumm(int xBVec[MMax]//Массив сумм
     , int xM//Количество столбцов
     , int& min);//Минимальная сумма
 
@@ -57,7 +57,7 @@ int main()
     setlocale(LC_ALL, "rus"); //подключение русского языка
 
     //Инициализация переменных
-    int AVec[NMax][MMax];//Исходная матрица
+    int AMatr[NMax][MMax];//Исходная матрица
     int BVec[MMax];//Массив для запоминания сумм в столбцах
     int i = 0;    //перемнная для строк матрицы
     int j = 0;    //переменная для стоблцов матрицы
@@ -70,7 +70,7 @@ int main()
     int BBVec[MMax];//Массив для запоминания сумм в столбцах
 
     // функции чтения файла и вывода ошибок
-    ErrCode = inpMatr(FName, AVec, i, j);
+    ErrCode = inpMatr(FName, AMatr, i, j);
     if (ErrCode > 0)
     {
         printMess(ErrCode, FName);
@@ -79,10 +79,10 @@ int main()
     else
     {
         //Вывод матрицы
-        printMatr(AVec, i, j);
+        printMatr(AMatr, i, j);
 
         //Поиск минимальной суммы
-        minsumm(AVec, BVec, i, j);
+        minsumm(AMatr, BVec, i, j);
 
         //обработка массива минимальных сумм, проверка на выполнение условий задачи
         treatment(BVec, j, min);
@@ -125,7 +125,7 @@ int main()
 //РЕАЛИЗАЦИЯ ФУНКЦИЙ
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName,int xVec[][MMax],int& xN,int& xM)
+int inpMatr(const char* FName, int xVec[][MMax], int& xN, int& xM)
 {
     int k = 0; //счетчик
     int p = 0; //счетчик
