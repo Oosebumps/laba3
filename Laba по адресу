@@ -22,7 +22,7 @@ const char* FNameB = "Тест16.txt";
 
 //Чтение и проверка матрицы
 int inpMatr(const char* FName,//Имя файла
-    int*** xVec,//Матрица
+    int**& xVec,//Матрица
     int& xN,//Число строк в матрице
     int& xM);//Число столбоцв в матрице
 
@@ -37,7 +37,7 @@ void printMatr(int** xVec,//Матрица
 
 //Функция поиска минимальной суммы
 void minsumm(int** xVec,//Матрица
-    int** xBVec,//Массив сумм
+    int*& xBVec,//Массив сумм
     int xN,//Число строк в матрице
     int xM);//Число столбоцв в матрице
 
@@ -76,7 +76,7 @@ int main()
     int* BBVec;//Массив для запоминания сумм в столбцах
 
     // функции чтения файла и вывода ошибок
-    ErrCode = inpMatr(FName, &AMatr, i, j);
+    ErrCode = inpMatr(FName, AMatr, i, j);
     if (ErrCode > 0)
     {
         printMess(ErrCode, FName);
@@ -88,7 +88,7 @@ int main()
         printMatr(AMatr, i, j);
 
         //Поиск минимальной суммы
-        minsumm(AMatr, &BVec, i, j);
+        minsumm(AMatr, BVec, i, j);
 
         //обработка массива минимальных сумм, проверка на выполнение условий задачи
         treatment(BVec, j, min);
@@ -104,7 +104,7 @@ int main()
     }
 
 
-    ErrCode = inpMatr(FNameB, &BBMatr, i, j);
+    ErrCode = inpMatr(FNameB, BBMatr, i, j);
     if (ErrCode > 0)
     {
         printMess(ErrCode, FNameB);
@@ -115,7 +115,7 @@ int main()
         printMatr(BBMatr, i, j);
 
         //Поиск минимальной суммы
-        minsumm(BBMatr, &BBVec, i, j);
+        minsumm(BBMatr, BBVec, i, j);
 
         //обработка массива минимальных сумм, проверка на выполнение условий задачи
         treatment(BBVec, j, min);
@@ -139,7 +139,7 @@ int main()
 //РЕАЛИЗАЦИЯ ФУНКЦИЙ
 
 //Чтение и проверка матрицы
-int inpMatr(const char* FName, int*** xVec, int& xN, int& xM)
+int inpMatr(const char* FName, int**& xVec, int& xN, int& xM)
 {
     int k = 0; //счетчик
     int p = 0; //счетчик
@@ -182,10 +182,10 @@ int inpMatr(const char* FName, int*** xVec, int& xN, int& xM)
 
 
     //Чтение файла в массив
-    *xVec = new int* [xN];//Инициализация строки указателей на столбцы
+    xVec = new int* [xN];//Инициализация строки указателей на столбцы
     for (int k = 0; k < xN; k++)
     {
-        *(*xVec + k) = new int[xM];//Инициализация элементов в стобцах
+        *(xVec + k) = new int[xM];//Инициализация элементов в стобцах
         for (int p = 0; p < xM; p++)
         {
 
@@ -193,7 +193,7 @@ int inpMatr(const char* FName, int*** xVec, int& xN, int& xM)
                 return 5; //неожиданный конец файла
             }
 
-            fin >> *(*(*xVec + k) + p);
+            fin >> *(*(xVec + k) + p);
 
             if (fin.fail()) //ошибка чтения из файла
                 return 6;
@@ -267,14 +267,14 @@ void printMatr(int** xVec, int xN, int xM)
     }//for k
 }//printMatr
 
-void minsumm(int** xVec, int** xBVec, int xN, int xM)
+void minsumm(int** xVec, int*& xBVec, int xN, int xM)
 {
 
     int p;// счётчик для столбцов
     int k;// счётчик для строк
 
     //Инициализация памяти для массива сумм
-    *xBVec = new int[xM];
+    xBVec = new int[xM];
     //Произведём подсчёт сумм
     for (p = 0; p < xM; p++)
     {
@@ -287,12 +287,12 @@ void minsumm(int** xVec, int** xBVec, int xN, int xM)
             }
             else
             {
-                *(*xBVec + p) = -1;//Сумма всего столбца будет -1, цикл завершится 
+                *(xBVec + p) = -1;//Сумма всего столбца будет -1, цикл завершится 
                 break;
 
 
             }//if
-            *(*xBVec + p) = summ;
+            *(xBVec + p) = summ;
         }//for
 
     }//for
